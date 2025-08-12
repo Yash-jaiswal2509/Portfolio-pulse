@@ -1,0 +1,26 @@
+# Local envirponment
+.env
+
+# Virtual environment
+.venv/
+
+# Local database files
+portfolio.sqlite
+*.sqlite*
+*.db
+
+# Generated reports
+reports/
+
+# Temporary data files
+data/data-sample/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS / editor files
+.DS_Store
+Thumbs.db
