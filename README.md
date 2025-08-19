@@ -1,84 +1,98 @@
-Portfolio Pulse: SQL-First Portfolio Analysis
+# Portfolio Pulse: SQL-First Portfolio Analysis
+
 Portfolio Pulse is a lightweight, SQL-first portfolio analysis tool that fetches historical stock prices, simulates portfolio performance based on defined weights, and calculates key risk and return metrics. The core logic for calculations is implemented in SQL for clarity and portability, with Python scripts for data fetching and report generation.
 
-🚀 Key Features
-Automated Data Fetching: Downloads historical daily closing prices for a list of tickers using the Alpha Vantage API.
+---
 
-SQL-First Logic: All major calculations (returns, rolling metrics, drawdowns) are performed in a SQLite database using SQL views.
+## 🚀 Key Features
 
-Comprehensive Analysis: Calculates a range of metrics including:
+* **Automated Data Fetching:** Downloads historical daily closing prices for a list of tickers using the Alpha Vantage API.
+* **SQL-First Logic:** All major calculations (returns, rolling metrics, drawdowns) are performed in a SQLite database using SQL views.
+* **Comprehensive Analysis:** Calculates a range of metrics including:
+    * Daily and cumulative portfolio returns.
+    * Annualized volatility.
+    * Annualized Sharpe Ratio.
+    * Maximum Drawdown.
+    * 30-day rolling volatility.
+    * Anomaly detection for significant daily returns.
+* **Flexible Weighting:** Supports time-varying portfolio weights. The system automatically uses the correct weights for each historical date.
+* **Reporting:** Generates a detailed Excel report with all underlying data and calculations, as well as a summary HTML report.
 
-Daily and cumulative portfolio returns.
+---
 
-Annualized volatility.
+## 🛠️ Tech Stack
 
-Annualized Sharpe Ratio.
+* **Backend:** Python
+* **Database:** SQLite
+* **Python Libraries:**
+    * `pandas`: For data manipulation.
+    * `alpha-vantage`: To fetch stock data.
+    * `jinja2`: For HTML report templating.
+    * `openpyxl`: For writing to Excel files.
+    * `python-dotenv`: For managing environment variables.
 
-Maximum Drawdown.
+---
 
-30-day rolling volatility.
+## ⚙️ Setup and Usage
 
-Anomaly detection for significant daily returns.
+### 1. **Clone the Repository**
 
-Flexible Weighting: Supports time-varying portfolio weights. The system automatically uses the correct weights for each historical date.
-
-Reporting: Generates a detailed Excel report with all underlying data and calculations, as well as a summary HTML report.
-
-🛠️ Tech Stack
-Backend: Python
-
-Database: SQLite
-
-Python Libraries:
-
-pandas: For data manipulation.
-
-alpha-vantage: To fetch stock data.
-
-jinja2: For HTML report templating.
-
-openpyxl: For writing to Excel files.
-
-python-dotenv: For managing environment variables.
-
-⚙️ Setup and Usage
-1. Clone the Repository
+```bash
 git clone <your-repository-url>
 cd portfolio-pulse
+```
 
-2. Create a Virtual Environment
+### 2. **Create a Virtual Environment**
+
 It's recommended to use a virtual environment to manage dependencies.
 
+```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+```
 
-3. Install Dependencies
-Install the required Python packages from requirements.txt.
+### 3. **Install Dependencies**
 
+Install the required Python packages from `requirements.txt`.
+
+```bash
 pip install -r requirements.txt
+```
 
-4. Set Up Environment Variables
-You'll need an API key from Alpha Vantage. Create a file named .env in the root of the project directory and add your API key:
+### 4. **Set Up Environment Variables**
 
+You'll need an API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key). Create a file named `.env` in the root of the project directory and add your API key:
+
+```
 ALPHAVANTAGE_KEY=YOUR_API_KEY
+```
 
-5. Fetch the Data
-Run the fetch_data.py script to download the latest price data for the tickers defined in the script. This will create sample_prices.csv and portfolio_weights.csv in the data/ directory.
+### 5. **Fetch the Data**
 
+Run the `fetch_data.py` script to download the latest price data for the tickers defined in the script. This will create `sample_prices.csv` and `portfolio_weights.csv` in the `data/` directory.
+
+```bash
 python fetch_data.py
+```
 
-6. Run the Analysis and Generate Reports
-Execute the export.py script to run the analysis. The --use-sample flag tells the script to use the CSV files in the data/ directory.
+### 6. **Run the Analysis and Generate Reports**
 
+Execute the `export.py` script to run the analysis. The `--use-sample` flag tells the script to use the CSV files in the `data/` directory.
+
+```bash
 python src/export.py --use-sample
+```
 
-After the script finishes, you will find the following files in the reports/ directory:
+After the script finishes, you will find the following files in the `reports/` directory:
 
-sql_first_report.xlsx: A detailed Excel workbook with sheets for prices, weights, returns, and all other calculations.
+* `sql_first_report.xlsx`: A detailed Excel workbook with sheets for prices, weights, returns, and all other calculations.
+* `sql_first_summary.html`: A simple HTML page summarizing the key performance metrics.
 
-sql_first_summary.html: A simple HTML page summarizing the key performance metrics.
+---
 
-📂 Project Structure
+## 📂 Project Structure
+
+```
 portfolio-pulse/
 ├── .gitignore
 ├── README.md
@@ -96,14 +110,14 @@ portfolio-pulse/
 │   └── weights_resolved.sql# SQL to get correct weights for each date
 └── src/
     └── export.py        # Main script to run analysis and generate reports
+```
 
-💡 Future Enhancements
-Web Interface: Build a simple web front-end (e.g., using Flask or Streamlit) to allow users to input their own tickers and weights and view the results interactively.
+---
 
-Expanded Data Sources: Integrate other data providers and support different asset classes like cryptocurrencies, bonds, or commodities.
+## 💡 Future Enhancements
 
-Advanced Risk Models: Incorporate more sophisticated risk metrics such as Value at Risk (VaR), Conditional Value at Risk (CVaR), or factor analysis.
-
-Database Migration: Adapt the system to work with more powerful database systems like PostgreSQL for improved performance and scalability.
-
-Interactive Visualizations: Add charts and graphs to the HTML report for a more intuitive understanding of the portfolio's performance.
+* **Web Interface:** Build a simple web front-end (e.g., using Flask or Streamlit) to allow users to input their own tickers and weights and view the results interactively.
+* **Expanded Data Sources:** Integrate other data providers and support different asset classes like cryptocurrencies, bonds, or commodities.
+* **Advanced Risk Models:** Incorporate more sophisticated risk metrics such as Value at Risk (VaR), Conditional Value at Risk (CVaR), or factor analysis.
+* **Database Migration:** Adapt the system to work with more powerful database systems like PostgreSQL for improved performance and scalability.
+* **Interactive Visualizations:** Add charts and graphs to the HTML report for a more intuitive understanding of the portfolio's performance.
